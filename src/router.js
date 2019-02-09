@@ -24,6 +24,20 @@ export default new Router({
       component: function () { 
         return import('./views/SignIn.vue')
       }
+    },
+    {
+      path: '/verify-email',
+      name: 'verify-email',
+      component: function () { 
+        return import('./views/VerifyEmail.vue')
+      }
+    },
+    {
+      path: '/dashboard/?user=:uid',
+      name: 'dashboard',
+      component: function () { 
+        return import('./views/Dashboard.vue')
+      }
     }
   ]
 })

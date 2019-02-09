@@ -3,11 +3,23 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link :to="{name: 'sign-in'}">Sign in</router-link>
+      <router-link v-if="!user.uid" :to="{name: 'sign-in'}">Sign in</router-link>
+      <router-link v-else :to="{name: 'dashboard', params: {uid: user.uid}}">Dashboard</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+name: 'app',
+computed: {
+  user() {
+    return this.$store.state.user
+  }
+}
+}
+</script>
 
 <style>
 #app {

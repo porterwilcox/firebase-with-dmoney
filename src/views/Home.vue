@@ -11,6 +11,11 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'home',
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  },
   components: {
     HelloWorld
   }
