@@ -20,11 +20,11 @@ export default new Vuex.Store({
       firebase.auth().onAuthStateChanged(user => {
         if(user) {
           if (user.emailVerified) {
-            commit('setUser', user)
             router.push({name: 'dashboard', params: {uid: user.uid}})
           } else {
             dispatch('validateEmail')
           }
+          commit('setUser', user)
         } else {
           router.push({name: 'sign-in'})
         }
@@ -53,6 +53,14 @@ export default new Vuex.Store({
         .then(() => {
           console.log('verification email sent')
         })
+    },
+    logout({commit}) {
+      firebase.auth().signOut()
+        .then(() => {
+          console.log('successfully logged out!')
+          commit('setUser', {})
+        })
+        .catch(e => console.error(e))
     }
   }
 })
