@@ -6,6 +6,7 @@
                 <h2 class="card-header">posts</h2>
                 <div class="card-body h-100">
                     <create-post class="col-12"></create-post>
+                    <post v-for="p in posts" :p="p" :key="p.id"/>
                 </div>
             </div>
         </div>
@@ -13,15 +14,20 @@
 </template>
 <script>
 import CreatePost from '@/components/CreatePost.vue'
+import Post from '@/components/Post.vue'
 export default {
     name: 'dashboard',
     computed: {
         user() {
             return this.$store.state.user
+        },
+        posts() {
+            return this.$store.state.posts
         }
     },
     components: {
-        CreatePost
+        CreatePost,
+        Post
     }
 }
 </script>
