@@ -38,6 +38,13 @@ export default new Router({
       component: function () { 
         return import('./views/Dashboard.vue')
       }
+    },
+    {
+      path: '/post/:pId',
+      name: 'post',
+      component: function () { 
+        return import('./views/Post.vue')
+      }
     }
   ]
 })

@@ -5,7 +5,7 @@
       <input type="email" id="email" v-model="user.email" required>
       <label for="password">Password</label>
       <input type="password" id="password" v-model="user.password" required>
-      <button type="submit">Register</button>
+      <button type="submit">Login</button>
     </form>
     <form v-else @submit.prevent="signIn()">
       <label for="name">Name</label>
@@ -16,7 +16,7 @@
       <input type="password" id="password" v-model="user.password" required>
       <button type="submit">Register</button>
     </form>
-    <p
+    <p class="clickable"
       @click="clearUser(); newUser = !newUser;"
     >{{newUser ? 'Already a member? Login' : 'No account yet? Register'}}</p>
   </div>

@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: {},
-    posts: []
+    posts: [],
+    comments: []
   },
   mutations: {
     setUser(state, user) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     setPosts(state, posts) {
       state.posts = posts
+    },
+    setComments(state, comments) {
+      state.comments = comments
     }
   },
   actions: {
@@ -85,8 +89,43 @@ export default new Vuex.Store({
             post.id = docRef.id
             posts.push(post)
           })
+          console.log(posts)
           commit('setPosts', posts)
         })
+    },
+    updatePost({commit, dispatch}, post) {
+      db.doc('posts/' + post.id).update(post)
+        .then(() => alert('updated post!'))
+    },
+    addComment({commit, dispatch}, payload) {
+      db.collection(`posts/${payload.postId}/comments`).add(payload.comment)
+        .then(res => {
+          dispatch('getComments', payload.postId)
+        })
+    },
+    getComments({commit}, postId) {
+      db.collection(`posts/${postId}/comments`).get()
+        .then(snapShot => {
+          let comments = []
+          snapShot.forEach(docRef => {
+            let c = docRef.data()
+            c.id = docRef.id
+            comments.push(c)
+          })
+          commit('setComments', comments)
+        })
+    }
+  },
+  getters : {
+    IsAuthor: () => (id) => {
+      return id == firebase.auth().currentUser.uid
+    },
+    AuthorCreds() {
+      let user = firebase.auth().currentUser
+      return {
+        displayName: user.displayName,
+        uId: user.uid
+      }
     }
   }
 })

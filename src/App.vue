@@ -40,4 +40,7 @@ computed: {
 .h90 {
   min-height: 90vh;
 }
+.clickable {
+  cursor: pointer;
+}
 </style>

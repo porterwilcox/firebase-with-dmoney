@@ -27,6 +27,8 @@ export default {
     },
     methods: {
         newPost() {
+            if (!this.post.title || !this.post.content) return
+            this.post["author"] = this.$store.getters.AuthorCreds
             this.$store.dispatch('newPost', this.post)
             this.post = {
                 title: '',
